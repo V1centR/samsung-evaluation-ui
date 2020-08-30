@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {MatBadgeModule} from '@angular/material/badge';
 import {Router} from '@angular/router';
 
 @Component({
@@ -22,9 +21,8 @@ export class LoginComponent implements OnInit {
   login(){
   
     console.log("Login:: " + this.emailLogin);
-    console.log("Form Submited:: OK");
 
-    this.route.navigate(['home']);
+    this.route.navigate(['index']);
     return false;
   }
 

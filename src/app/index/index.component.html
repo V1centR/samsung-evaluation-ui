@@ -1,1 +1,102 @@
-<p>index works!</p>
+<div style="margin: 10px;">
+
+
+<!--### SEARCH ####-->
+<mat-card>
+  <h2>Search criteria</h2>
+
+    <div style="border: 1px solid #ff0000;">
+
+        <div style="position: relative; float: left; border: 1px solid #0356fc; min-width: 200px; width: 22%; margin-right: 10%;">
+        <input type="text" placeholder="Document number" style="width: 88%; min-width: 182px" >
+    </div>
+
+        
+    <div style="position: relative; float: left; width: auto; border: 1px solid #bf00ff;">
+       
+         <!--### SELECT CURRENCY ####-->
+        <mat-form-field appearance="fill">
+            <mat-label>Currency</mat-label>
+            <select matNativeControl required >
+                <option label="-- Selecione -- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"></option>
+                <option value="volvo">FULL</option>
+                <option value="volvo">DOLLAR - USD</option>
+              <option value="saab">SOLES PERUANO - PEN</option>
+              <option value="mercedes">REAL - BRL</option>
+            </select>
+        </mat-form-field>
+
+
+    </div>
+
+    <!--### SELECT DATES ####-->
+        <div style="position: relative; float: right; border: 1px solid #0e6b00;">
+
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>Document Date start -></mat-label>
+            <input matInput [matDatepicker]="picker1" readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          &nbsp;
+          <mat-form-field color="accent" appearance="fill">
+            <mat-label>End -></mat-label>
+            <input matInput [matDatepicker]="picker2" readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div style="clear: both;"></div>
+        <div style="position: relative; float: right; border: 1px solid #0e6b00;">
+          
+          <button mat-raised-button color="primary">Search</button>&nbsp;&nbsp;
+          <button mat-raised-button color="warn">Clean</button>
+          
+        </div>
+
+    </div>
+
+<div style="clear: both;"></div>
+
+</mat-card>
+
+
+
+
+
+<!--### RESULTS ####-->
+
+<mat-card>
+  <h2>Self results </h2>
+
+  <table style="width: 100%;" matSort (matSortChange)="sortData($event)">
+    <tr >
+      <th style="" mat-sort-header="name">Document Number</th>
+      <th style="" mat-sort-header="calories">Document Date</th>
+      <th style="" mat-sort-header="fat">Currency Code</th>
+      <th style="" mat-sort-header="carbs">Currency Desc</th>
+      <th style="" mat-sort-header="protein">Document Value</th>
+
+      <th mat-sort-header="usdValue">Value USD</th>
+      <th mat-sort-header="penValue">Value PEN</th>
+      <th mat-sort-header="brlValue">Value BRL</th>
+    </tr>
+  
+    <tr *ngFor="let dessert of sortedData">
+      <td>{{dessert.name}}</td>
+      <td>{{dessert.calories}}</td>
+      <td>{{dessert.fat}}</td>
+      <td>{{dessert.carbs}}</td>
+      <td>{{dessert.protein}}</td>
+
+      <td>{{dessert.protein}}</td>
+      <td>{{dessert.protein}}</td>
+      <td>{{dessert.protein}}</td>
+    </tr>
+  </table>
+
+</mat-card>
+
+
+
+</div>

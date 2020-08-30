@@ -12,4 +12,9 @@ export class MenuBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  toggleBadgeVisibility(){
+
+    return "Date: click on calendar icon."
+  }
+
 }
