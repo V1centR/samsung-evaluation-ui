@@ -1,22 +1,15 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Sort} from '@angular/material/sort';
-import { CdkColumnDef } from '@angular/cdk/table';
 
-export interface Dessert {
-  calories: number;
-  carbs: number;
-  fat: number;
-  name: string;
-  protein: number;
-}
+import {SamsungQuotationApiService} from '../Service/samsung-quotation-api.service';
+import {SamsungQuotationApi} from '../Model/samsung-quotation-api';
+
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css'],
-  providers: [
-    
-  ]
+  providers: []
 })
 
 export class IndexComponent implements OnInit {
@@ -26,37 +19,60 @@ export class IndexComponent implements OnInit {
 
 
   hidden = false;
-
   date:any;
+  quotationApi:any;
+  quotationItems:any[]; //const arr: Emp[] = [  
+  quotationObject:any;
+  frontItems:any;
 
-  //constructor() { }
+  ngOnInit(){
+    this.getCategories();
+  }
 
-  ngOnInit(): void{
+  constructor(private apiService: SamsungQuotationApiService) {
   }
 
   toggleBadgeVisibility() {
     this.hidden = !this.hidden;
   }
+  
+  async getCategories(){
 
 
-  //DATAGRID CONFIGS#########
+  await this.apiService.findAll().toPromise().then( res => {
 
-  desserts: Dessert[] = [
-    {name: 'Frozen yogurt', calories: 159, fat: 6, carbs: 24, protein: 4},
-    {name: 'Ice cream sandwich', calories: 237, fat: 9, carbs: 37, protein: 4},
-    {name: 'Eclair', calories: 262, fat: 16, carbs: 24, protein: 6},
-    {name: 'Cupcake', calories: 305, fat: 4, carbs: 67, protein: 4},
-    {name: 'Gingerbread', calories: 356, fat: 16, carbs: 49, protein: 4},
-  ];
+    this.quotationItems = [];
 
-  sortedData: Dessert[];
+    this.quotationApi = JSON.parse(JSON.stringify(res));
 
-  constructor() {
-    this.sortedData = this.desserts.slice();
-  }
+    this.quotationApi.forEach(element => {
+
+
+      this.quotationItems.push(
+        {
+          docNumber: element.docNumber, 
+          docDate: element.docDate, 
+          currencyCode: element.currencyCode, 
+          currencyDesc: element.currencyDesc, 
+          docValue: element.docValue,
+          valueUsd: element.valueUsd,
+          valuePen: element.valuePen,
+          valueBrl: element.valueBrl,
+      })
+
+    });//Close forEach###
+
+    console.log(this.quotationItems);
+    this.sortedData = this.quotationItems.slice();
+
+  });
+
+}
+
+  sortedData: SamsungQuotationApi[];
 
   sortData(sort: Sort) {
-    const data = this.desserts.slice();
+    const data = this.quotationItems.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
       return;
@@ -65,11 +81,12 @@ export class IndexComponent implements OnInit {
     this.sortedData = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        case 'calories': return compare(a.calories, b.calories, isAsc);
-        case 'fat': return compare(a.fat, b.fat, isAsc);
-        case 'carbs': return compare(a.carbs, b.carbs, isAsc);
-        case 'protein': return compare(a.protein, b.protein, isAsc);
+        case 'docNumber': return compare(a.docNumber, b.docNumber, isAsc);
+        case 'docDate': return compare(a.docDate, b.docDate, isAsc);
+        case 'currencyCode': return compare(a.currencyCode, b.currencyCode, isAsc);
+        case 'currencyDesc': return compare(a.currencyDesc, b.currencyDesc, isAsc);
+        case 'docValue': return compare(a.docValue, b.docValue, isAsc);
+        case 'valueUsd': return compare(a.valueUsd, b.valueUsd, isAsc);
         default: return 0;
       }
     });
