@@ -1,7 +1,6 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Sort} from '@angular/material/sort';
-
 import {SamsungQuotationApiService} from '../Service/samsung-quotation-api.service';
 import {SamsungQuotationApi} from '../Model/samsung-quotation-api';
 
