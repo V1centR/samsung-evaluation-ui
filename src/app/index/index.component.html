@@ -3,15 +3,16 @@
   <mat-card>
     <form (ngSubmit)="currencyQuotationAction(currencyForm)" #currencyForm="ngForm">
      <h2>Search criteria</h2>
-     <div style="border: 1px solid #ff0000;">
-        <div style="position: relative; float: left; border: 1px solid #0356fc; min-width: 200px; width: 22%; margin-right: 10%;">
-           <input type="text" #docNumber appOnlyNumbers name="docNumber" placeholder="Document number" (keydown)="blockSearch()" (blur)="releaseSearch($event)" style="width: 88%; min-width: 182px" ngModel>
+     <div>
+        <div style="position: relative; float: left; min-width: 200px; width: 22%; margin-right: 10%;">
+           <input type="text" #docNumber appOnlyNumbers name="docNumber" placeholder="Document number" (blur)="blockSearch($event)" style="width: 88%; min-width: 182px" ngModel>
         </div>
-        <div style="position: relative; float: left; width: auto; border: 1px solid #bf00ff;">
+
+        <div style="position: relative; float: left; width: auto;">
            <!--### SELECT CURRENCY ####-->
            <mat-form-field appearance="fill">
               <mat-label>Currency</mat-label>
-              <select matNativeControl required ngModel name="currency">
+              <select matNativeControl ngModel [disabled]="currency" name="currency">
                  <option value="0" label="-- Selecione -- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"></option>
                  <option value="full">FULL</option>
                  <option value="USD">DOLLAR - USD</option>
@@ -21,7 +22,7 @@
            </mat-form-field>
         </div>
         <!--### SELECT DATES ####-->
-        <div style="position: relative; float: right; border: 1px solid #0e6b00;">
+        <div style="position: relative; float: right;">
            <mat-form-field color="accent" appearance="fill">
               <mat-label>Document Date start -></mat-label>
               <input matInput [matDatepicker]="startDate" ngModel name="startDate">
@@ -37,7 +38,7 @@
            </mat-form-field>
         </div>
         <div style="clear: both;"></div>
-        <div style="position: relative; float: right; border: 1px solid #0e6b00;">
+        <div style="position: relative; float: right;">
            <button mat-raised-button color="primary">Search</button>&nbsp;&nbsp;
            <button mat-raised-button color="warn">Clean</button>
         </div>

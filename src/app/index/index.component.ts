@@ -23,8 +23,8 @@ export class IndexComponent implements OnInit {
   quotationItems:any[]; //const arr: Emp[] = [  
   quotationObject:any;
   frontItems:any;
-  startDate;
-  currency:any;
+  startDate:boolean;
+  currency:boolean;
   docNumber:string;
   formInput:any;
 
@@ -146,21 +146,22 @@ currencyQuotationAction(currencyForm: NgForm){
 
   sortedData: SamsungQuotationApi[];
 
-  blockSearch(){
+  blockSearch(event: any){
 
     console.log("BLOCK OK!");
+    console.log(event.target.value.length);
 
-  }
-
-  releaseSearch(event: any){
-
-    console.log("ELEMENT:: ", event.target.value.length);
-    
     if(event.target.value.length > 0){
-      console.log("Release NO!");
+      //block inputs
+      this.currency = true;
+      this.startDate = true;
     } else {
-      console.log("Release OK!");
+      //release inputs      
+      //this.onMouseMove();
+      this.currency = false;
+      this.startDate = false;
     }
+
   }
 
   sortData(sort: Sort) {
