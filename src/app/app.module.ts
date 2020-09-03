@@ -32,6 +32,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 import { CdkColumnDef } from '@angular/cdk/table';
 
 import { HttpClientModule } from '@angular/common/http';
+import { OnlyNumbersDirective } from './direct/only-numbers.directive';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { HttpClientModule } from '@angular/common/http';
     IndexComponent,
     LoginComponent,
     MenuBarComponent,
+    OnlyNumbersDirective,
   ],
   imports: [
     BrowserModule,

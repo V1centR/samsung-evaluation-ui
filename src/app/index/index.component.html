@@ -1,21 +1,22 @@
 <div style="margin: 10px;">
   <!--### SEARCH ####-->
   <mat-card>
+    <form (ngSubmit)="currencyQuotationAction(currencyForm)" #currencyForm="ngForm">
      <h2>Search criteria</h2>
      <div style="border: 1px solid #ff0000;">
         <div style="position: relative; float: left; border: 1px solid #0356fc; min-width: 200px; width: 22%; margin-right: 10%;">
-           <input type="text" placeholder="Document number" style="width: 88%; min-width: 182px" >
+           <input type="text" #docNumber appOnlyNumbers name="docNumber" placeholder="Document number" (keydown)="blockSearch()" (blur)="releaseSearch($event)" style="width: 88%; min-width: 182px" ngModel>
         </div>
         <div style="position: relative; float: left; width: auto; border: 1px solid #bf00ff;">
            <!--### SELECT CURRENCY ####-->
            <mat-form-field appearance="fill">
               <mat-label>Currency</mat-label>
-              <select matNativeControl required >
-                 <option label="-- Selecione -- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"></option>
-                 <option value="volvo">FULL</option>
-                 <option value="volvo">DOLLAR - USD</option>
-                 <option value="saab">SOLES PERUANO - PEN</option>
-                 <option value="mercedes">REAL - BRL</option>
+              <select matNativeControl required ngModel name="currency">
+                 <option value="0" label="-- Selecione -- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"></option>
+                 <option value="full">FULL</option>
+                 <option value="USD">DOLLAR - USD</option>
+                 <option value="PEN">SOLES PERUANO - PEN</option>
+                 <option value="BRL">REAL - BRL</option>
               </select>
            </mat-form-field>
         </div>
@@ -23,14 +24,14 @@
         <div style="position: relative; float: right; border: 1px solid #0e6b00;">
            <mat-form-field color="accent" appearance="fill">
               <mat-label>Document Date start -></mat-label>
-              <input matInput [matDatepicker]="picker1" readonly>
-              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-              <mat-datepicker #picker1></mat-datepicker>
+              <input matInput [matDatepicker]="startDate" ngModel name="startDate">
+              <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+              <mat-datepicker #startDate ></mat-datepicker>
            </mat-form-field>
            &nbsp;
            <mat-form-field color="accent" appearance="fill">
               <mat-label>End -></mat-label>
-              <input matInput [matDatepicker]="picker2" readonly>
+              <input matInput [matDatepicker]="picker2" ngModel name="endDate">
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2 color="primary"></mat-datepicker>
            </mat-form-field>
@@ -42,6 +43,7 @@
         </div>
      </div>
      <div style="clear: both;"></div>
+    </form>
   </mat-card>
   <!--### RESULTS ####-->
   <mat-card>

@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import {Sort} from '@angular/material/sort';
 import {SamsungQuotationApiService} from '../Service/samsung-quotation-api.service';
 import {SamsungQuotationApi} from '../Model/samsung-quotation-api';
+import {FormGroup, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-index',
@@ -13,9 +14,8 @@ import {SamsungQuotationApi} from '../Model/samsung-quotation-api';
 
 export class IndexComponent implements OnInit {
 
-  @ViewChild("picker1")
-  picker1: NgForm;
-
+  // @ViewChild("currencyForm")
+  // currencyForm: FormGroup;
 
   hidden = false;
   date:any;
@@ -23,9 +23,13 @@ export class IndexComponent implements OnInit {
   quotationItems:any[]; //const arr: Emp[] = [  
   quotationObject:any;
   frontItems:any;
+  startDate;
+  currency:any;
+  docNumber:string;
+  formInput:any;
 
   ngOnInit(){
-    this.getCategories();
+    this.getCategories("full");
   }
 
   constructor(private apiService: SamsungQuotationApiService) {
@@ -34,30 +38,102 @@ export class IndexComponent implements OnInit {
   toggleBadgeVisibility() {
     this.hidden = !this.hidden;
   }
-  
-  async getCategories(){
 
+currencyQuotationAction(currencyForm: NgForm){
+
+  
+  let formInput = currencyForm.value;
+
+  //console.log("Currency selected! -> " + this.currency + " Data: " + this.startDate);
+
+  this.getCategories(formInput);
+
+  console.log("DOC NUMBER:: ", formInput.docNumber);
+  console.log("CURRENCY CODE:: ", formInput.currency); 
+  console.log("START DATE:: ", formInput.startDate);
+  console.log("END DATE:: ", formInput.endDate);
+}
+
+  
+  async getCategories(searchParams){
+
+
+    console.log("::ARGUMENTS OK::", searchParams);
 
   await this.apiService.findAll().toPromise().then( res => {
+
+    console.log("Data Received:: ", res);
 
     this.quotationItems = [];
 
     this.quotationApi = JSON.parse(JSON.stringify(res));
 
     this.quotationApi.forEach(element => {
+//searchParams.currency
+
+      console.log("Search Param::: ", searchParams.currency);
 
 
-      this.quotationItems.push(
-        {
-          docNumber: element.docNumber, 
-          docDate: element.docDate, 
-          currencyCode: element.currencyCode, 
-          currencyDesc: element.currencyDesc, 
-          docValue: element.docValue,
-          valueUsd: element.valueUsd,
-          valuePen: element.valuePen,
-          valueBrl: element.valueBrl,
-      })
+      if (searchParams.docNumber == element.docNumber){
+
+        this.quotationItems.push(
+          {
+            docNumber: element.docNumber, 
+            docDate: element.docDate, 
+            currencyCode: element.currencyCode, 
+            currencyDesc: element.currencyDesc, 
+            docValue: element.docValue,
+            valueUsd: element.valueUsd,
+            valuePen: element.valuePen,
+            valueBrl: element.valueBrl,
+        })
+
+      }
+
+      if(element.currencyCode == searchParams.currency){
+
+        this.quotationItems.push(
+          {
+            docNumber: element.docNumber, 
+            docDate: element.docDate, 
+            currencyCode: element.currencyCode, 
+            currencyDesc: element.currencyDesc, 
+            docValue: element.docValue,
+            valueUsd: element.valueUsd,
+            valuePen: element.valuePen,
+            valueBrl: element.valueBrl,
+        })
+
+       // this.sortedData = this.quotationItems.slice();
+      } else if (searchParams.currency == "full" || searchParams == "full"){
+
+        this.quotationItems.push(
+          {
+            docNumber: element.docNumber, 
+            docDate: element.docDate, 
+            currencyCode: element.currencyCode, 
+            currencyDesc: element.currencyDesc, 
+            docValue: element.docValue,
+            valueUsd: element.valueUsd,
+            valuePen: element.valuePen,
+            valueBrl: element.valueBrl,
+        })
+
+      }
+
+      
+
+      // this.quotationItems.push(
+      //   {
+      //     docNumber: element.docNumber, 
+      //     docDate: element.docDate, 
+      //     currencyCode: element.currencyCode, 
+      //     currencyDesc: element.currencyDesc, 
+      //     docValue: element.docValue,
+      //     valueUsd: element.valueUsd,
+      //     valuePen: element.valuePen,
+      //     valueBrl: element.valueBrl,
+      // })
 
     });//Close forEach###
 
@@ -69,6 +145,23 @@ export class IndexComponent implements OnInit {
 }
 
   sortedData: SamsungQuotationApi[];
+
+  blockSearch(){
+
+    console.log("BLOCK OK!");
+
+  }
+
+  releaseSearch(event: any){
+
+    console.log("ELEMENT:: ", event.target.value.length);
+    
+    if(event.target.value.length > 0){
+      console.log("Release NO!");
+    } else {
+      console.log("Release OK!");
+    }
+  }
 
   sortData(sort: Sort) {
     const data = this.quotationItems.slice();
