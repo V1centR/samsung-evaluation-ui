@@ -18,3 +18,34 @@ mat-card{
     align-items: center;
   }
   
+  @media screen and (max-width: 450px) {
+    .testSize {
+      /* border: 1px solid #ff0000; */
+    }
+
+    .docNumber{
+      width: 100%;
+      margin-bottom: 10px;
+      /* border: 1px solid #ff0000; */
+      
+    }
+
+    .responsiveDiv{
+      width: 100%;
+      margin-bottom: 10px;
+      /* border: 1px solid #ff0000; */
+      
+    }
+
+    .docNumberInput{
+      width: 95%;
+      height: 50px;
+      font-size: 26px;
+    }
+
+    .selectCurrencyInput, .selectDataInput{
+      width: 100%;
+    }
+
+   
+  }
