@@ -36,6 +36,7 @@ export class IndexComponent implements OnInit {
   formInput:any;
   currencyList: Currency[];
   CurrencyListFront;
+  preloadSpinner:boolean;
 
   //Get Selected Currency Code on OptionGroup
   selectedCurrency:string;
@@ -64,6 +65,7 @@ currencyQuotationAction(currencyForm: NgForm){
 
 async getCurrencyCodes(){
 
+  
   await this.apiService.findCurrency().toPromise().then( res => {
 
     this.currencyItems = [];
@@ -86,6 +88,8 @@ async getCurrencyCodes(){
 }
   
   async getCategories(searchParams){
+
+  this.preloadSpinner = true;
 
   await this.apiService.findAll().toPromise().then( res => {
 
@@ -144,6 +148,7 @@ async getCurrencyCodes(){
       }
     });//Close forEach###
     this.sortedData = this.quotationItems.slice();
+    this.preloadSpinner = false;
 
   });
 

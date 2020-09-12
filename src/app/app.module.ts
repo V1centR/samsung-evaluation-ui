@@ -28,8 +28,8 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort'; 
-import {CdkTableModule} from '@angular/cdk/table';
 import { CdkColumnDef } from '@angular/cdk/table';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import { HttpClientModule } from '@angular/common/http';
 import { OnlyNumbersDirective } from './direct/only-numbers.directive';
@@ -63,6 +63,7 @@ import { OnlyNumbersDirective } from './direct/only-numbers.directive';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatProgressBarModule
 
   ],
   providers: [

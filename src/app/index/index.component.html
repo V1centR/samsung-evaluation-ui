@@ -48,7 +48,8 @@
      <div style="clear: both;"></div>
     </form>
   </mat-card>
-  <!--### RESULTS ####-->
+  <!--### RESULTS ####-->  
+
   <mat-card style="overflow-x: scroll;">
      <h2>Self results </h2>
      <table style="width: 100%;" matSort (matSortChange)="sortData($event)">
@@ -62,6 +63,11 @@
            <th mat-sort-header="valuePen">Value PEN</th>
            <th mat-sort-header="valueBrl">Value BRL</th>
         </tr>
+        <tr>
+           <td colspan="100%">
+              <mat-progress-bar mode="indeterminate" *ngIf="preloadSpinner"></mat-progress-bar>
+            </td>
+         </tr>
         <tr *ngFor="let dessert of sortedData">
            <td>{{dessert.docNumber}}</td>
            <td>{{dessert.docDate}}</td>
