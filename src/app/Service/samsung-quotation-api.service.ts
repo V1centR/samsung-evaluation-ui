@@ -7,11 +7,7 @@ import {Observable} from 'rxjs';
 })
 export class SamsungQuotationApiService {
 
-  //LC_API:string = "http://192.168.1.7:8080/api/evaluation";
-
-  //LC_API:string = "http://127.0.0.1:8080/api/evaluation";
-
-  LC_API:string = "http://ec2-18-191-133-109.us-east-2.compute.amazonaws.com/api/evaluation";
+  LC_API:string = "http://ec2-3-137-40-117.us-east-2.compute.amazonaws.com/api/evaluation";
 
   constructor(private http: HttpClient) { }
 
